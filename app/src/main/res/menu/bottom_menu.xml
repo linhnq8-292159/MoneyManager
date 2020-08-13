@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_transaction"
+        android:icon="@drawable/ic_transaction"
+        android:title="@string/transacsion" />
+    <item
+        android:id="@+id/nav_add_transaction"
+        android:icon="@drawable/ic_plus"
+        android:title="@string/add_transaction" />
+    <item
+        android:id="@+id/nav_statistic"
+        android:icon="@drawable/ic_statistics"
+        android:title="@string/statistics" />
+</menu>

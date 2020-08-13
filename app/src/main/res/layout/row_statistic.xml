@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp">
+    <RelativeLayout
+        android:id="@+id/row_statistic_begin_money_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/SmallLabel"
+            android:id="@+id/tv_begin_money_key"
+            android:text="@string/initial_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/tv_begin_money_key"
+            android:id="@+id/tv_begin_money_value"
+            android:gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/row_statistic_end_money_box"
+        android:layout_below="@id/row_statistic_begin_money_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tv_end_money_key"
+            android:text="@string/balancethismonth"
+            style="@style/SmallLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/tv_end_money_key"
+            android:id="@+id/tv_end_money_value"
+            android:gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>
