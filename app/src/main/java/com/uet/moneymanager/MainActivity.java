@@ -8,15 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Switch;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.uet.moneymanager.fragment.AddTransactionFragment;
 import com.uet.moneymanager.fragment.StatisticFragment;
 import com.uet.moneymanager.fragment.TransactionFragment;
-import com.uet.moneymanager.util.Database;
 
 public class MainActivity extends AppCompatActivity {
 

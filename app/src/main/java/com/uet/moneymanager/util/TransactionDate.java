@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class TransactionDate {
     private Date date;
-    private double moneyAmount;
+    private int moneyAmount;
 
-    public TransactionDate(Date date, double moneyAmount) {
+    public TransactionDate(Date date, int moneyAmount) {
         this.date = date;
         this.moneyAmount = moneyAmount;
     }
@@ -20,11 +20,11 @@ public class TransactionDate {
         this.date = date;
     }
 
-    public double getMoneyAmount() {
+    public int getMoneyAmount() {
         return moneyAmount;
     }
 
-    public void setMoneyAmount(double moneyAmount) {
+    public void setMoneyAmount(int moneyAmount) {
         this.moneyAmount = moneyAmount;
     }
 }

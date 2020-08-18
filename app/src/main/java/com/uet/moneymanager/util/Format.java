@@ -48,5 +48,5 @@ public class Format {
 
     public static long stringToLong(String numberInString) {
         return Long.parseLong(numberInString);
-    }
+    }   
 }
