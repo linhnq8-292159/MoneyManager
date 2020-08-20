@@ -1,4 +1,4 @@
-package com.uet.moneymanager;
+package com.uet.moneymanager.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.uet.moneymanager.R;
 import com.uet.moneymanager.fragment.AddTransactionFragment;
 import com.uet.moneymanager.fragment.StatisticFragment;
 import com.uet.moneymanager.fragment.TransactionFragment;
@@ -20,7 +21,7 @@ import com.uet.moneymanager.fragment.TransactionFragment;
 public class MainActivity extends AppCompatActivity {
 
     final Fragment transactionFragment = new TransactionFragment();
-    final Fragment addTransactionFrament = new AddTransactionFragment();
+    final Fragment addTransactionFragment = new AddTransactionFragment();
     final Fragment statisticFragment = new StatisticFragment();
     private BottomNavigationView bottomNavigationView;
 
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);

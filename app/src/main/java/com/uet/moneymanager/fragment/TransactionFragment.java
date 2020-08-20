@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.uet.moneymanager.R;
+import com.uet.moneymanager.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,6 +55,9 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         data = new ArrayList<>();
 
 
+
+
+
         return view;
     }
 
@@ -67,6 +71,23 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     }
 
     private void btnNextPageClick() {
+
+        int currentMonth = DateUtil.getMonth(currentDate);
+        int currentYear = DateUtil.getYear(currentDate);
+
+        int nowInMonth = DateUtil.getMonth(Calendar.getInstance().getTime());
+        int nowInYear = DateUtil.getYear(Calendar.getInstance().getTime());
+
+        if(nowInYear > currentYear || (nowInYear == currentYear && nowInMonth == currentMonth)){
+            currentDate = DateUtil.getNextMonth(currentDate);
+            updatePagaesTitle();
+        }
+    }
+
+    private void updatePagaesTitle() {
+        Date nextMonth = DateUtil.getNextMonth(currentDate);
+        Date prevMonth = DateUtil.getPrevMonth(currentDate);
+
 
     }
 }

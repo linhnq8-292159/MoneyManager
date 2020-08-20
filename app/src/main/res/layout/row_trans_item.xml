@@ -36,11 +36,7 @@
             android:id="@+id/row_trans_item_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
-            style="@style/SmallLabel"
-            android:id="@+id/row_trans_item_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
     </LinearLayout>
     <TextView
         style="@style/SmallLabel"
