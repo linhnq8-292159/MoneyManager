@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uet.moneymanager.R;
+import com.uet.moneymanager.database.DatabaseAccess;
 
 import org.w3c.dom.Text;
 
@@ -25,7 +26,7 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
     ImageView imgTransactionGroupIcon;
     EditText etAmountOfMoney, etTransactionNote;
     DatePickerDialog datePickerDialog;
-
+    DatabaseAccess databaseAccess;
     Date selectedDate;
 
 
@@ -43,9 +44,13 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
         etTransactionNote = view.findViewById(R.id.etTransactionNote);
 
 
-        addEvents();
+        init();
 
         return view;
+    }
+
+    private void init() {
+        databaseAccess = new DatabaseAccess(getActivity());
     }
 
     private void addEvents() {

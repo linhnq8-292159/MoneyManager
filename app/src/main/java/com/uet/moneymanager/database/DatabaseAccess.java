@@ -129,4 +129,50 @@ public class DatabaseAccess {
         database.delete("Transaction", "phone = ?", new String[]{String.valueOf(transaction.getId())});
         database.close();
     }
+
+    public List<TransactionGroup> getAllGroup() {
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+        String query = "SELECT * FROM " + "Groups";
+
+        List<TransactionGroup> lst = new ArrayList<>();
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return lst;
+        } else {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                int id = c.getInt(c.getColumnIndex("id"));
+                String name = c.getString(c.getColumnIndex("name"));
+                int type = c.getInt(c.getColumnIndex("type"));
+                lst.add(new TransactionGroup(id, name, type));
+                c.moveToNext();
+            }
+            c.close();
+            return lst;
+        }
+    }
+
+    public TransactionGroup getGroupByGroupName(String groupName) {
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+        String query = "SELECT * FROM Groups WHERE name = "+"'" + groupName + "'";
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return null;
+        } else {
+            c.moveToFirst();
+            TransactionGroup group = null;
+            if (!c.isAfterLast()) {
+                int id = c.getInt(c.getColumnIndex("id"));
+                String name = c.getString(c.getColumnIndex("name"));
+                int type = c.getInt(c.getColumnIndex("type"));
+                group = new TransactionGroup(id, name, type);
+            }
+            c.close();
+            return group;
+        }
+    }
 }
