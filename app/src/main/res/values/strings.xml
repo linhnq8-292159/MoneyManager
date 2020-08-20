@@ -10,4 +10,7 @@
     <string name="cancel">Hủy</string>
     <string name="save">Lưu</string>
     <string name="amount_of_money">Số tiền</string>
+    <string name="select_group">Chọn nhóm</string>
+    <string name="income">Khoản thu</string>
+    <string name="expense">Khooản chi</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.uet.moneymanager.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import com.uet.moneymanager.database.DatabaseAccess;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class AddTransactionFragment extends Fragment implements View.OnClickListener{
@@ -51,6 +55,39 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
 
     private void init() {
         databaseAccess = new DatabaseAccess(getActivity());
+        etAmountOfMoney.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etAmountOfMoney.removeTextChangedListener(this);
+                try {
+                    String givenString = editable.toString();
+                    Long longAmount;
+                    if (givenString.contains(",")){
+                        givenString = givenString.replaceAll(",","");
+                    }
+                    longAmount = Long.parseLong(givenString);
+                    DecimalFormat formattedDecimal = new DecimalFormat("#,###,###");
+                    String formattedString = formattedDecimal.format(longAmount);
+                    etAmountOfMoney.setText(formattedString);
+                    etAmountOfMoney.setSelection(etAmountOfMoney.getText().length());
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                etAmountOfMoney.addTextChangedListener(this);
+            }
+        });
+        tvSaveTransaction.setOnClickListener(this);
+        tvSelectedGroup.setOnClickListener(this);
     }
 
     private void addEvents() {
@@ -60,6 +97,10 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        Intent returnIntent = new Intent();
+        switch (view.getId()){
+            case  R.id.btnCancel:
 
+        }
     }
 }
