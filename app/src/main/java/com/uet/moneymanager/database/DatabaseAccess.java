@@ -132,7 +132,7 @@ public class DatabaseAccess {
 
     public List<TransactionGroup> getAllGroup() {
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-        String query = "SELECT * FROM " + "Groups";
+        String query = "SELECT * FROM Groups";
 
         List<TransactionGroup> lst = new ArrayList<>();
 

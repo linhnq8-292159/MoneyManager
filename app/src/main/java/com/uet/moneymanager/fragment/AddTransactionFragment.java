@@ -1,6 +1,7 @@
 package com.uet.moneymanager.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,12 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uet.moneymanager.R;
+import com.uet.moneymanager.activity.SelectTransactionGroupActivity;
 import com.uet.moneymanager.database.DatabaseAccess;
 
 import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class AddTransactionFragment extends Fragment implements View.OnClickListener{
 
@@ -32,6 +35,8 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
     DatePickerDialog datePickerDialog;
     DatabaseAccess databaseAccess;
     Date selectedDate;
+
+    Context context;
 
 
     @Override
@@ -97,10 +102,13 @@ public class AddTransactionFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Intent returnIntent = new Intent();
+        //Intent returnIntent = new Intent();
         switch (view.getId()){
-            case  R.id.btnCancel:
-
+            case R.id.tvSelectedGroup:
+            Intent intent = new Intent(getActivity(), SelectTransactionGroupActivity.class);
+            Objects.requireNonNull(getActivity()).startActivity(intent);
+            getActivity().finish();
+            break;
         }
     }
 }
