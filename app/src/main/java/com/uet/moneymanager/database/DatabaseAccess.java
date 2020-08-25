@@ -43,7 +43,7 @@ public class DatabaseAccess {
 
 //    public List<Transaction> getTransaction() {
 //        List<Transaction> list = new ArrayList<>();
-//        Cursor cursor = database.rawQuery("SELECT * FROM ransaction", null);
+//        Cursor cursor = database.rawQuery("SELECT * FROM Transaction", null);
 //        cursor.moveToFirst();
 //        while (!cursor.isAfterLast()) {
 //            Transaction transaction = new Transaction();
@@ -88,8 +88,7 @@ public class DatabaseAccess {
     public TransactionGroup getGroupById(int id) {
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + "Group" + " WHERE " + "id" + " = " + id;
-        //System.out.println(query);
+        String query = "SELECT * FROM Groups WHERE id" + " = " + id;
 
         Cursor c = db.rawQuery(query, null);
 
@@ -104,7 +103,6 @@ public class DatabaseAccess {
                 group = new TransactionGroup(id, name, type);
             }
             c.close();
-            //System.out.println("Ads retrieved: " + ads);
             return group;
         }
     }
@@ -134,24 +132,22 @@ public class DatabaseAccess {
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
         String query = "SELECT * FROM Groups";
 
-        List<TransactionGroup> lst = new ArrayList<>();
+        List<TransactionGroup> list = new ArrayList<>();
 
         Cursor c = db.rawQuery(query, null);
 
-        if (c == null) {
-            return lst;
-        } else {
+        if (c != null) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 int id = c.getInt(c.getColumnIndex("id"));
                 String name = c.getString(c.getColumnIndex("name"));
                 int type = c.getInt(c.getColumnIndex("type"));
-                lst.add(new TransactionGroup(id, name, type));
+                list.add(new TransactionGroup(id, name, type));
                 c.moveToNext();
             }
             c.close();
-            return lst;
         }
+        return list;
     }
 
     public TransactionGroup getGroupByGroupName(String groupName) {

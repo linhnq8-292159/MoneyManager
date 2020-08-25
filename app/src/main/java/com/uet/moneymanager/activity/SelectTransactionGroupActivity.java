@@ -29,7 +29,7 @@ public class SelectTransactionGroupActivity extends AppCompatActivity {
     List<TransactionGroup> incomesData;
     List<TransactionGroup> expensesData;
     SelectTransactionGroupListViewAdapter adapter;
-    TextView btnCancel, tvIncome, tvExpense;
+    TextView tvCancel, tvIncome, tvExpense;
     LinearLayout btnIncome, btnExpense, btnGroupWrapper;
 
     DatabaseAccess database;
@@ -81,7 +81,7 @@ public class SelectTransactionGroupActivity extends AppCompatActivity {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent returnIntent = new Intent();
@@ -132,7 +132,7 @@ public class SelectTransactionGroupActivity extends AppCompatActivity {
 
     private void findView() {
         rvTransactionGroup = findViewById(R.id.rvTransactionGroup);
-        btnCancel = findViewById(R.id.btnCancel);
+        tvCancel = findViewById(R.id.tvCancel);
         tvIncome = findViewById(R.id.tvIncome);
         tvExpense = findViewById(R.id.tvExpense);
         btnIncome = findViewById(R.id.btnIncome);

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.AddTransactionFragment">
+    tools:context=".activity.AddTransaction">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCancelTransaction"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:text="@string/cancel"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"/>
 
 
             <TextView
@@ -35,7 +47,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="@string/save"
-                android:textColor="#FF1744"
+                android:textColor="@color/red"
                 android:paddingTop="16dp"
                 android:gravity="end"
                 android:paddingBottom="16dp"
@@ -140,6 +152,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:hint="Ghi chú"
+                    android:inputType="text"
                     android:textSize="18sp"/>
             </LinearLayout>
 

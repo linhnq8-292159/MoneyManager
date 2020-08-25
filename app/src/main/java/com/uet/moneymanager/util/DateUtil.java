@@ -57,6 +57,49 @@ public class DateUtil {
         return calendar1.getTimeInMillis();
     }
 
+    public static String getDayOfWeek(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+            case Calendar.MONDAY:
+                return "Thứ Hai";
+            case Calendar.TUESDAY:
+                return "Thứ Ba";
+            case Calendar.WEDNESDAY:
+                return "Thứ Tư";
+            case Calendar.THURSDAY:
+                return "Thứ Năm";
+            case Calendar.FRIDAY:
+                return "Thứ Sáu";
+            case Calendar.SATURDAY:
+                return "Thứ Bảy";
+            case Calendar.SUNDAY:
+                return "Chủ Nhật";
+            default:
+                return "Thứ ";
+        }
+    }
+
+    public static String getDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        return dayOfMonth < 10 ? "0" + dayOfMonth : "" + dayOfMonth;
+    }
+
+    public static String getMonthAndYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        return "tháng " + month + " " + year;
+    }
+
+    public static String formatDate(Date date) {
+        return getDayOfWeek(date) + ", " + getDayOfMonth(date) + " " + getMonthAndYear(date);
+    }
+
+
 }
 
 
