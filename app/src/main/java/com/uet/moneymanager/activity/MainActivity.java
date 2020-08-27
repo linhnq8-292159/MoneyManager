@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         spaceNavigationView.addSpaceItem(new SpaceItem("Statistic", R.drawable.ic_statistics));
 
 //        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-       getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, transactionFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, transactionFragment).commit();
 
 
 

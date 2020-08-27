@@ -136,7 +136,10 @@ public class DatabaseAccess {
 
         Cursor c = db.rawQuery(query, null);
 
-        if (c != null) {
+        if (c==null){
+            return list;
+        }
+        else  {
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 int id = c.getInt(c.getColumnIndex("id"));

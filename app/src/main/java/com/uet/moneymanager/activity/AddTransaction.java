@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.database.DatabaseAccess;
 import com.uet.moneymanager.util.DateUtil;
+import com.uet.moneymanager.util.GroupIconUtil;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -82,7 +83,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         tvCancelTransaction.setOnClickListener(this);
         tvSaveTransaction.setOnClickListener(this);
         selectedDate = Calendar.getInstance().getTime();
-        tvSaveTransaction.setOnClickListener(this);
+        tvSelectedGroup.setOnClickListener(this);
     }
 
     private void findView() {
@@ -130,5 +131,16 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SELECT_GROUP && resultCode == RESULT_OK){
+            assert data !=null;
+            String groupName = data.getStringExtra("groupName");
+            tvSelectedGroup.setText(groupName);
+            assert groupName != null;
+
+
+
+            //lỗi dùng vector
+            //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(groupName));
+        }
     }
 }
