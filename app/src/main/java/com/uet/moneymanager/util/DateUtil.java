@@ -56,6 +56,13 @@ public class DateUtil {
         Calendar calendar1 = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         return calendar1.getTimeInMillis();
     }
+    public static long getEndDayTime(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Calendar calendar1 = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        return calendar1.getTime().getTime();
+    }
 
     public static String getDayOfWeek(Date date) {
         Calendar calendar = Calendar.getInstance();

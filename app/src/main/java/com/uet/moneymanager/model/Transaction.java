@@ -10,7 +10,7 @@ public class Transaction implements Serializable {
     private String note;
     private Date date;
 
-    public Transaction() {
+    public Transaction(int amount,TransactionGroup transactionGroup,String note,Date date) {
         this.amount = amount;
         this.transactionGroup = transactionGroup;
         this.note = note;
