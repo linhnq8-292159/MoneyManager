@@ -43,7 +43,7 @@ public class DatabaseAccess {
             this.database.close();
         }
     }
-    
+
 
     public List<Transaction> getAllTransaction() {
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
@@ -69,6 +69,7 @@ public class DatabaseAccess {
                 c.moveToNext();
             }
             c.close();
+            db.close();
             return lst;
         }
     }
@@ -92,6 +93,7 @@ public class DatabaseAccess {
                 group = new TransactionGroup(id, name, type);
             }
             c.close();
+            db.close();
             return group;
         }
     }
@@ -116,17 +118,24 @@ public class DatabaseAccess {
                 int id = c.getInt(c.getColumnIndex("id"));
                 int amount = c.getInt(c.getColumnIndex("amount"));
                 String note = c.getString(c.getColumnIndex("date"));
-                //int walletType = c.getInt(c.getColumnIndex(TRANSACTION_WALLET_TYPE));
                 int groupId = c.getInt(c.getColumnIndex("group_id"));
                 Date date = Format.timestampToDate(c.getLong(c.getColumnIndex("date")));
                 lst.add(new Transaction(id, amount, getGroupById(groupId), note, date));
                 c.moveToNext();
             }
             c.close();
-            //System.out.println("Ads retrieved: " + ads);
+            db.close();
             return lst;
         }
     }
+    public int Sum1Transaction(Date date){
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+        int sum1 = Integer.parseInt("SELECT sum(amount) FROM Transactions WHERE group_id= 1 AND date = "+date);
+        int sum2 = Integer.parseInt("SELECT sum(amount) FROM Transactions WHERE group_id= 2 AND date = "+date);
+        return sum1 - sum2;
+    }
+
+
 //    public void insertTransaction(Transaction transaction) {
 //        //System.out.println("Deleting ads that is marked as to be deleted..");
 //        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase();
@@ -145,7 +154,7 @@ public class DatabaseAccess {
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());
         values.put("date", String.valueOf(transaction.getDate()));
-        values.put("group_id",transaction.getTransactionGroup().getId());
+        values.put("group_id",transaction.getTransactionGroup().getType());
         database.insert("Transactions", null, values);
     }
 
@@ -154,6 +163,7 @@ public class DatabaseAccess {
         values.put("amount",newtransaction.getAmount());
         values.put("note",newtransaction.getNote());
         values.put("date", String.valueOf(newtransaction.getDate()));
+        values.put("group_id",newtransaction.getTransactionGroup().getType());
         database.update("Transactions",values,"id = ?",new String[]{String.valueOf(oldtransaction.getId())});
     }
 
@@ -183,6 +193,7 @@ public class DatabaseAccess {
                 c.moveToNext();
             }
             c.close();
+            db.close();
         }
         return list;
     }
@@ -205,6 +216,7 @@ public class DatabaseAccess {
                 group = new TransactionGroup(id, name, type);
             }
             c.close();
+            db.close();
             return group;
         }
     }
