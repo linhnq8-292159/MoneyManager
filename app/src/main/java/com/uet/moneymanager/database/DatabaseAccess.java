@@ -128,10 +128,10 @@ public class DatabaseAccess {
             return lst;
         }
     }
-    public int Sum1Transaction(Date date){
+    public int SumTransaction(Date date){
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-        int sum1 = Integer.parseInt("SELECT sum(amount) FROM Transactions WHERE group_id= 1 AND date = "+date);
-        int sum2 = Integer.parseInt("SELECT sum(amount) FROM Transactions WHERE group_id= 2 AND date = "+date);
+        int sum1 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id>=22 AND date = "+date);
+        int sum2 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id<22 AND date = "+date);
         return sum1 - sum2;
     }
 
