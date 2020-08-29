@@ -154,7 +154,7 @@ public class DatabaseAccess {
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());
         values.put("date", String.valueOf(transaction.getDate()));
-        values.put("group_id",transaction.getTransactionGroup().getType());
+        values.put("group_id",transaction.getTransactionGroup().getId());
         database.insert("Transactions", null, values);
     }
 
@@ -163,7 +163,7 @@ public class DatabaseAccess {
         values.put("amount",newtransaction.getAmount());
         values.put("note",newtransaction.getNote());
         values.put("date", String.valueOf(newtransaction.getDate()));
-        values.put("group_id",newtransaction.getTransactionGroup().getType());
+        values.put("group_id",newtransaction.getTransactionGroup().getId());
         database.update("Transactions",values,"id = ?",new String[]{String.valueOf(oldtransaction.getId())});
     }
 
