@@ -34,6 +34,13 @@
             android:ellipsize="end"
             android:lines="1"
             android:id="@+id/row_trans_item_note"
+            android:text="note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            style="@style/SmallLabel"
+            android:id="@+id/row_trans_item_type"
+            android:text="type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

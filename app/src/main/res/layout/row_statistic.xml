@@ -16,6 +16,7 @@
 
         <TextView
             android:textSize="14sp"
+            android:text="250,000 đ"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/tv_begin_money_key"
             android:id="@+id/tv_begin_money_value"
@@ -39,6 +40,7 @@
 
         <TextView
             android:textSize="14sp"
+            android:text="100,000 đ"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/tv_end_money_key"
             android:id="@+id/tv_end_money_value"
@@ -46,5 +48,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
+    <View
+        android:id="@+id/row_statistic_divider"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/row_statistic_end_money_box"
+        android:background="#D8D2D2"
+        android:layout_width="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_height="1dp"/>
+    <TextView
+        android:textColor="#000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/row_statistic_divider"
+        android:id="@+id/tv_remain_money"
+        android:text="-50,000 đ"
+        android:gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

@@ -149,7 +149,7 @@ public class DatabaseAccess {
 //
 //    }
 
-    public void insertTransaction(Transaction transaction) {
+    public void getinsertTransaction(Transaction transaction) {
         ContentValues values = new ContentValues();
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());
@@ -158,7 +158,7 @@ public class DatabaseAccess {
         database.insert("Transactions", null, values);
     }
 
-    public void updateTransaction(Transaction oldtransaction,Transaction newtransaction) {
+    public void getupdateTransaction(Transaction oldtransaction,Transaction newtransaction) {
         ContentValues values = new ContentValues();
         values.put("amount",newtransaction.getAmount());
         values.put("note",newtransaction.getNote());
@@ -171,6 +171,7 @@ public class DatabaseAccess {
         database.delete("Transactions", "id = ?", new String[]{String.valueOf(transaction.getId())});
         database.close();
     }
+
 
     public List<TransactionGroup> getAllGroup() {
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
