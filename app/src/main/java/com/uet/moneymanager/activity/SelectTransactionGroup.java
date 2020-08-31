@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.adapter.SelectTransactionGroupListViewAdapter;
-import com.uet.moneymanager.database.DatabaseOpenHelper;
 import com.uet.moneymanager.database.DatabaseAccess;
-import com.uet.moneymanager.model.Transaction;
 import com.uet.moneymanager.model.TransactionGroup;
 
 import android.app.Activity;
@@ -22,7 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectTransactionGroupActivity extends AppCompatActivity {
+public class SelectTransactionGroup extends AppCompatActivity {
     
     RecyclerView rvTransactionGroup;
     List<TransactionGroup> data;
@@ -47,7 +45,7 @@ public class SelectTransactionGroupActivity extends AppCompatActivity {
 
     private void init() {
 
-        database = new DatabaseAccess(SelectTransactionGroupActivity.this);
+        database = new DatabaseAccess(SelectTransactionGroup.this);
         data = database.getAllGroup();
 
         incomesData = new ArrayList<>();
@@ -64,11 +62,11 @@ public class SelectTransactionGroupActivity extends AppCompatActivity {
         data.clear();
         data.addAll(incomesData);
 
-        adapter = new SelectTransactionGroupListViewAdapter(SelectTransactionGroupActivity.this,data);
+        adapter = new SelectTransactionGroupListViewAdapter(SelectTransactionGroup.this,data);
 
         currentTab = 1;
 
-        rvTransactionGroup.setLayoutManager(new LinearLayoutManager(SelectTransactionGroupActivity.this));
+        rvTransactionGroup.setLayoutManager(new LinearLayoutManager(SelectTransactionGroup.this));
         rvTransactionGroup.setAdapter(adapter);
 
         adapter.setOnItemClickedListener(new SelectTransactionGroupListViewAdapter.OnItemClickedListener() {

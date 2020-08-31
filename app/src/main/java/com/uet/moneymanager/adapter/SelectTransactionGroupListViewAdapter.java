@@ -34,19 +34,19 @@ public class SelectTransactionGroupListViewAdapter extends RecyclerView.Adapter<
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_transaction_group, parent, false);
-        return new TransactionGroupViewHoler(view);
+        return new TransactionGroupViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final TransactionGroupViewHoler viewHoler = (TransactionGroupViewHoler) holder;
-        viewHoler.setTransactionGroup(data.get(position));
+        final TransactionGroupViewHolder viewHolder = (TransactionGroupViewHolder) holder;
+        viewHolder.setTransactionGroup(data.get(position));
 
-        viewHoler.transactionGroupWrapper.setOnClickListener(new View.OnClickListener() {
+        viewHolder.transactionGroupWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickedListener != null){
-                    onItemClickedListener.onItemClicked(viewHoler.tvName.getText().toString());
+                    onItemClickedListener.onItemClicked(viewHolder.tvName.getText().toString());
                 }
             }
         });
@@ -58,13 +58,13 @@ public class SelectTransactionGroupListViewAdapter extends RecyclerView.Adapter<
         return data.size();
     }
 
-    public static class TransactionGroupViewHoler extends RecyclerView.ViewHolder{
+    public static class TransactionGroupViewHolder extends RecyclerView.ViewHolder{
 
         ImageView ivIcon;
         TextView tvName;
         LinearLayout transactionGroupWrapper;
 
-        public TransactionGroupViewHoler(@NonNull View itemView) {
+        public TransactionGroupViewHolder(@NonNull View itemView) {
             super(itemView);
             ivIcon = itemView.findViewById(R.id.ivTransactionGroupIcon);
             tvName = itemView.findViewById(R.id.tvTransactionGroupName);

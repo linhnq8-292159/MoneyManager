@@ -93,7 +93,8 @@
                     android:layout_weight="1"
                     android:hint="@string/amount_of_money"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/default_active_item_color"/>
 
             </LinearLayout>
 
@@ -120,7 +121,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="Chọn nhóm"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textColor="@color/default_active_item_color"/>
 
             </LinearLayout>
 

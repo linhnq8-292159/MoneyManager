@@ -21,7 +21,7 @@ public class Format {
 
     public static int stringToInt(String str, int defNum) {
         try {
-            return Integer.valueOf(str);
+            return Integer.parseInt(str);
         } catch (Exception e) {
             return defNum;
         }
@@ -48,5 +48,6 @@ public class Format {
 
     public static long stringToLong(String numberInString) {
         return Long.parseLong(numberInString);
-    }   
+    }
+
 }

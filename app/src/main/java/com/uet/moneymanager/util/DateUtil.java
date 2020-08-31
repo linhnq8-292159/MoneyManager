@@ -64,6 +64,14 @@ public class DateUtil {
         return calendar1.getTime().getTime();
     }
 
+    public static long getEndDayTime(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Calendar cal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        return cal.getTime().getTime();
+    }
+
     public static String getDayOfWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -99,13 +107,44 @@ public class DateUtil {
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
-        return "tháng " + month + " " + year;
+        return month + "/" + year;
     }
 
     public static String formatDate(Date date) {
-        return getDayOfWeek(date) + ", " + getDayOfMonth(date) + " " + getMonthAndYear(date);
+        return getDayOfWeek(date) + ", " + getDayOfMonth(date) + "/" + getMonthAndYear(date);
     }
 
+    public static String formatDateBaseOnMonth(Date date) {
+        if (Calendar.getInstance().getTimeInMillis() < date.getTime()) {
+            return "";
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            return "T" + month + "/" + year;
+        }
+    }
+
+    public static Date getFirstDayOfThisMonth(Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        while (calendar.get(Calendar.DAY_OF_MONTH) != 1) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        return Format.timestampToDate(getStartDayTime(calendar.getTime()));
+    }
+
+    public static Date getLastDayOfThisMonth(Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        while (calendar.get(Calendar.DAY_OF_MONTH) != getNumberOfDays(currentDate)) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        return Format.timestampToDate(getStartDayTime(calendar.getTime()));
+    }
 
 }
 
