@@ -105,7 +105,6 @@ public class DatabaseAccess {
 
         String query = "SELECT * FROM Transactions WHERE date >=" + startDateInMilliseconds +"AND date <" +endDateInMilliseconds +"ORDER BY date DESC";
 
-
         List<Transaction> lst = new ArrayList<>();
 
         Cursor c = db.rawQuery(query, null);
@@ -128,13 +127,32 @@ public class DatabaseAccess {
             return lst;
         }
     }
-    public int SumTransaction(Date date){
-        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-        int sum1 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id>=22 AND date = "+date);
-        int sum2 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id<22 AND date = "+date);
-        return sum1 - sum2;
-    }
+    public int getMoneyAmountTransaction(Date date){
+        long dateInMilliseconds = DateUtil.getStartDayTime(date);
 
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+        String query;
+        query = "SELECT * FROM  Transactions WHERE  date  >= " + dateInMilliseconds;
+        int result = 0;
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return result;
+        } else {
+            c.moveToFirst();
+            Transaction transaction = null;
+            while (!c.isAfterLast()) {
+                float amount = c.getFloat(c.getColumnIndex("amount"));
+                result += amount;
+                c.moveToNext();
+            }
+            c.close();
+
+            return result;
+        }
+    }
 
 //    public void insertTransaction(Transaction transaction) {
 //        //System.out.println("Deleting ads that is marked as to be deleted..");
