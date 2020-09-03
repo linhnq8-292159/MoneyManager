@@ -7,16 +7,13 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Format {
-    public static String doubleToString(double num) {
+    public static String intToString(int num) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
         return decimalFormat.format(num) + " đ";
     }
     public static String doubleToString(double num, String pattern) {
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(num);
-    }
-    public static String intToString(int num) {
-        return String.valueOf(num);
     }
 
     public static int stringToInt(String str, int defNum) {

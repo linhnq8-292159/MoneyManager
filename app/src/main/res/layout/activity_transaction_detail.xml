@@ -130,7 +130,7 @@
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:id="@+id/tvTransDetailGroup"
-                android:textColor="#00000"
+                android:textColor="#000000"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>
@@ -192,7 +192,7 @@
             <TextView
                 android:layout_marginStart="10dp"
                 android:id="@+id/tvTransDetailDate"
-                android:textColor="#00000"
+                android:textColor="@color/default_active_item_color"
                 android:textSize="14sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"

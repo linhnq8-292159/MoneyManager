@@ -11,6 +11,7 @@ public class TransactionDate {
         this.moneyAmount = moneyAmount;
     }
 
+
     public Date getDate() {
         return date;
     }

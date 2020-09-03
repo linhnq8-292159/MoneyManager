@@ -1,27 +1,27 @@
 package com.uet.moneymanager.model;
 
 public class TransactionStatistic {
-    public int beginMoneyAmount;
-    public int endMoneyAmount;
+    public int initialAmount;
+    public int amountOfThisMonth;
 
-    public TransactionStatistic(int beginMoneyAmount, int endMoneyAmount) {
-        this.beginMoneyAmount = beginMoneyAmount;
-        this.endMoneyAmount = endMoneyAmount;
+    public TransactionStatistic(int initialAmount, int amountOfThisMonth) {
+        this.initialAmount = initialAmount;
+        this.amountOfThisMonth = amountOfThisMonth;
     }
 
-    public int getBeginMoneyAmount() {
-        return beginMoneyAmount;
+    public int getInitialAmount() {
+        return initialAmount;
     }
 
-    public void setBeginMoneyAmount(int beginMoneyAmount) {
-        this.beginMoneyAmount = beginMoneyAmount;
+    public void setInitialAmount(int initialAmount) {
+        this.initialAmount = initialAmount;
     }
 
-    public int getEndMoneyAmount() {
-        return endMoneyAmount;
+    public int getAmountOfThisMonth() {
+        return amountOfThisMonth;
     }
 
-    public void setEndMoneyAmount(int endMoneyAmount) {
-        this.endMoneyAmount = endMoneyAmount;
+    public void setAmountOfThisMonth(int amountOfThisMonth) {
+        this.amountOfThisMonth = amountOfThisMonth;
     }
 }

@@ -103,7 +103,7 @@ public class DatabaseAccess {
 
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM Transactions WHERE date >=" + startDateInMilliseconds +"AND date <" +endDateInMilliseconds +"ORDER BY date DESC";
+        String query = "SELECT * FROM Transactions WHERE date >=" + startDateInMilliseconds +" AND date <" +endDateInMilliseconds +" ORDER BY date DESC";
 
 
         List<Transaction> lst = new ArrayList<>();
@@ -128,12 +128,6 @@ public class DatabaseAccess {
             return lst;
         }
     }
-    public int SumTransaction(Date date){
-        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-        int sum1 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id>=22 AND date = "+date);
-        int sum2 = Integer.parseInt("SELECT sum(amount) FROM Transactions INNER JOIN Groups on Transactions.group_id = Groups.id AND Groups.id<22 AND date = "+date);
-        return sum1 - sum2;
-    }
 
 
 //    public void insertTransaction(Transaction transaction) {
@@ -149,7 +143,7 @@ public class DatabaseAccess {
 //
 //    }
 
-    public void getinsertTransaction(Transaction transaction) {
+    public void insertTransaction(Transaction transaction) {
         ContentValues values = new ContentValues();
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());
@@ -158,13 +152,13 @@ public class DatabaseAccess {
         database.insert("Transactions", null, values);
     }
 
-    public void getupdateTransaction(Transaction oldtransaction,Transaction newtransaction) {
+    public void updateTransaction(Transaction oldTransaction,Transaction newTransaction) {
         ContentValues values = new ContentValues();
-        values.put("amount",newtransaction.getAmount());
-        values.put("note",newtransaction.getNote());
-        values.put("date", String.valueOf(newtransaction.getDate()));
-        values.put("group_id",newtransaction.getTransactionGroup().getId());
-        database.update("Transactions",values,"id = ?",new String[]{String.valueOf(oldtransaction.getId())});
+        values.put("amount",newTransaction.getAmount());
+        values.put("note",newTransaction.getNote());
+        values.put("date", String.valueOf(newTransaction.getDate()));
+        values.put("group_id",newTransaction.getTransactionGroup().getId());
+        database.update("Transactions",values,"id = ?",new String[]{String.valueOf(oldTransaction.getId())});
     }
 
     public void deleteTransaction(Transaction transaction) {
@@ -219,6 +213,107 @@ public class DatabaseAccess {
             c.close();
             db.close();
             return group;
+        }
+    }
+
+    public int getAllMoney(){
+        open();
+        String query = "SELECT amount FROM Transactions";
+        Cursor cursor = database.rawQuery(query, null);
+
+        int result = 0;
+
+        if (cursor == null){
+            return 0;
+        } else {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()){
+                int amount = cursor.getInt(cursor.getColumnIndex("amount"));
+                result += amount;
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return result;
+        }
+    }
+
+    public int getMoneyInADay(Date date) {
+        long start = DateUtil.getStartDayTime(date);
+        long end = DateUtil.getEndDayTime(date);
+
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+        String query = "SELECT * FROM Transactions  WHERE date >= " + start + " AND date < " + end + " ORDER BY date ASC";
+
+        Cursor c = db.rawQuery(query, null);
+
+        int result = 0;
+
+        if (c == null) {
+            return 0;
+        } else {
+            c.moveToFirst();
+            while  (!c.isAfterLast()) {
+                int amount = c.getInt(c.getColumnIndex("amount"));
+                result +=  amount;
+                c.moveToNext();
+            }
+            c.close();
+            return result;
+        }
+    }
+
+    public int getInitialAmount(Date date) {
+        long firstDate = DateUtil.getStartDayTime(date);
+
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+        String query;
+        query = "SELECT * FROM  Transactions WHERE  date  <= " + firstDate;
+        int result = 0;
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return result;
+        } else {
+            c.moveToFirst();
+            Transaction transaction = null;
+            while (!c.isAfterLast()) {
+                int amount = c.getInt(c.getColumnIndex("amount"));
+                result += amount;
+                c.moveToNext();
+            }
+            c.close();
+
+            return result;
+
+        }
+    }
+
+    public int getMoneyAmountTransactionInRange(Date startDate,Date endDate){
+        long start = DateUtil.getStartDayTime(startDate);
+        long end = DateUtil.getEndDayTime(endDate);
+
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+        String query;
+        query = "SELECT * FROM  Transactions WHERE  date  >= " + start +" AND date < " + end;
+        int result = 0;
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return result;
+        } else {
+            c.moveToFirst();
+            Transaction transaction = null;
+            while (!c.isAfterLast()) {
+                int amount = c.getInt(c.getColumnIndex("amount"));
+                result += amount;
+                c.moveToNext();
+            }
+            c.close();
+            return result;
         }
     }
 

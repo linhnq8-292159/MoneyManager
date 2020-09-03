@@ -50,6 +50,12 @@ public class DateUtil {
         return calendar.get(Calendar.YEAR);
     }
 
+    public static int getDayOfYear(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
     public static long getStartDayTime(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -62,14 +68,6 @@ public class DateUtil {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Calendar calendar1 = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         return calendar1.getTime().getTime();
-    }
-
-    public static long getEndDayTime(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Calendar cal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-        return cal.getTime().getTime();
     }
 
     public static String getDayOfWeek(Date date) {

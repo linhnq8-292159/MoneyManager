@@ -94,31 +94,29 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
     public int getItemCount() {
         return data.size();
     }
-    class TransactionStatisticViewHolder extends RecyclerView.ViewHolder{
+    static class TransactionStatisticViewHolder extends RecyclerView.ViewHolder{
         private TextView tvBeginMoney;
         private TextView tvEndMoney;
-        private TextView tvRemainMoney;
 
         public TransactionStatisticViewHolder(@NonNull View itemView) {
             super(itemView);
             tvBeginMoney = itemView.findViewById(R.id.tv_begin_money_value);
             tvEndMoney = itemView.findViewById(R.id.tv_end_money_value);
-            tvRemainMoney = itemView.findViewById(R.id.tv_remain_money);
         }
         void setTransactionStatistic(TransactionStatistic transactionStatistic) {
-            tvBeginMoney.setText(Format.intToString(transactionStatistic.getBeginMoneyAmount()));
-            tvEndMoney.setText(Format.intToString(transactionStatistic.getEndMoneyAmount()));
-            tvRemainMoney.setText(Format.intToString(transactionStatistic.getEndMoneyAmount() - transactionStatistic.getBeginMoneyAmount()));
+            tvBeginMoney.setText(Format.intToString(transactionStatistic.getInitialAmount()));
+            tvEndMoney.setText(Format.intToString(transactionStatistic.getAmountOfThisMonth()));
+
         }
     }
-    class TransactionHeaderViewHolder extends RecyclerView.ViewHolder {
+    static class TransactionHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvDayOfMonth;
         private TextView tvDayOfWeek;
         private TextView tvMonth;
         private TextView tvAmount;
 
-        TransactionHeaderViewHolder(@NonNull View itemView) {
+        public TransactionHeaderViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDayOfMonth = itemView.findViewById(R.id.row_trans_header_day_of_month);
@@ -134,12 +132,11 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
             tvMonth.setText(DateUtil.getMonthAndYear(transactionDate.getDate()));
         }
     }
-    class TransactionItemViewHolder extends RecyclerView.ViewHolder {
+    static class TransactionItemViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivTransactionGroupIcon;
         private TextView tvGroupName;
         private TextView tvNote;
-        private TextView tvType;
         private TextView tvAmount;
         private LinearLayout btnTransItemWrapper;
 
@@ -148,7 +145,6 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
             ivTransactionGroupIcon = itemView.findViewById(R.id.transaction_group_icon);
             tvGroupName = itemView.findViewById(R.id.row_trans_item_group_name);
             tvNote = itemView.findViewById(R.id.row_trans_item_note);
-            tvType = itemView.findViewById(R.id.row_trans_item_type);
             tvAmount = itemView.findViewById(R.id.row_trans_item_amount);
             btnTransItemWrapper = itemView.findViewById(R.id.btnTransItemWrapper);
         }

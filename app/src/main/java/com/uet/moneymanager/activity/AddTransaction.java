@@ -4,12 +4,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.database.DatabaseAccess;
+import com.uet.moneymanager.model.Transaction;
+import com.uet.moneymanager.model.TransactionGroup;
 import com.uet.moneymanager.util.DateUtil;
 import com.uet.moneymanager.util.GroupIconUtil;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -122,8 +127,36 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.tvSelectedGroup:
-                Intent intent = new Intent(AddTransaction.this, SelectTransactionGroupActivity.class);
+                Intent intent = new Intent(AddTransaction.this, SelectTransactionGroup.class);
                 startActivityForResult(intent, SELECT_GROUP);
+                break;
+            case R.id.tvSaveTransaction:
+                if (etAmountOfMoney.getText().toString().equals("") || tvSelectedGroup.getText().toString().equals("")){
+                    Context context;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Lỗi");
+                    builder.setMessage("Vui lòng điền đầy đủ thông tin");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                } else{
+                    int amount = Integer.parseInt(etAmountOfMoney.getText().toString().replace(",", ""));
+                    TransactionGroup transactionGroup = databaseAccess.getGroupByGroupName(tvSelectedGroup.getText().toString());
+                    String note = etNote.getText().toString();
+                    Date date = selectedDate;
+                    if (transactionGroup.getType() == TransactionGroup.EXPENSE){
+                        amount = -amount;
+                    }
+                    returnIntent.putExtra("result", new Transaction(amount, transactionGroup, note, date));
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
                 break;
         }
     }
@@ -136,8 +169,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             String groupName = data.getStringExtra("groupName");
             tvSelectedGroup.setText(groupName);
             assert groupName != null;
-
-
 
             //lỗi dùng vector
             //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(groupName));
