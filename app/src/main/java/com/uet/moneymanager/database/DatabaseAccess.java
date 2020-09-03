@@ -127,7 +127,7 @@ public class DatabaseAccess {
             return lst;
         }
     }
-    public int getMoneyAmountTransaction(Date date){
+    public int getMoneyInDay(Date date){
         long dateInMilliseconds = DateUtil.getStartDayTime(date);
 
         SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
@@ -144,7 +144,34 @@ public class DatabaseAccess {
             c.moveToFirst();
             Transaction transaction = null;
             while (!c.isAfterLast()) {
-                float amount = c.getFloat(c.getColumnIndex("amount"));
+                int amount = (int) c.getFloat(c.getColumnIndex("amount"));
+                result += amount;
+                c.moveToNext();
+            }
+            c.close();
+
+            return result;
+        }
+    }
+    public int getMoneyAmountTransaction(Date startDate,Date endDate){
+        long start = DateUtil.getStartDayTime(startDate);
+        long end = DateUtil.getEndDayTime(endDate);
+
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+        String query;
+        query = "SELECT * FROM  Transactions WHERE  date  >= " + start +"AND date <=" + end;
+        int result = 0;
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null) {
+            return result;
+        } else {
+            c.moveToFirst();
+            Transaction transaction = null;
+            while (!c.isAfterLast()) {
+                int amount = (int) c.getFloat(c.getColumnIndex("amount"));
                 result += amount;
                 c.moveToNext();
             }
