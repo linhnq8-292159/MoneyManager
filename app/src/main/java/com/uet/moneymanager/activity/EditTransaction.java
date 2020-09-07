@@ -121,7 +121,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.tvSelectedGroup:
-                Intent intent = new Intent(EditTransaction.this, SelectTransactionGroupActivity.class);
+                Intent intent = new Intent(EditTransaction.this, SelectTransactionGroup.class);
                 startActivityForResult(intent, SELECT_GROUP);
                 break;
         }

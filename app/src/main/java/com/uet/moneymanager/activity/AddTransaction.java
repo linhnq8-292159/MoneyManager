@@ -2,6 +2,8 @@ package com.uet.moneymanager.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.database.DatabaseAccess;
 import com.uet.moneymanager.model.Transaction;
@@ -40,6 +42,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     Date selectedDate;
     DatePickerDialog pickerDialog;
     DatabaseAccess databaseAccess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.tvSaveTransaction:
                 if (etAmountOfMoney.getText().toString().equals("") || tvSelectedGroup.getText().toString().equals("")){
-                    Context context;
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Lỗi");
                     builder.setMessage("Vui lòng điền đầy đủ thông tin");
@@ -169,7 +171,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             String groupName = data.getStringExtra("groupName");
             tvSelectedGroup.setText(groupName);
             assert groupName != null;
-
             //lỗi dùng vector
             //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(groupName));
         }

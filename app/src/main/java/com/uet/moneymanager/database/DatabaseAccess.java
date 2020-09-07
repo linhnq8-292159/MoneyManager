@@ -211,7 +211,6 @@ public class DatabaseAccess {
                 group = new TransactionGroup(id, name, type);
             }
             c.close();
-            db.close();
             return group;
         }
     }

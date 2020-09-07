@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.TransactionFragment">
+    >
     
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -112,6 +112,15 @@
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_plus"
+        />
+    
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/srlTransaction"
     android:layout_width="match_parent"

@@ -56,6 +56,20 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
+    public int getItemViewType(int position) {
+        Object obj = data.get(position);
+        //kiem tra kieu du lieu instanceof
+        if (obj instanceof Transaction) {
+            return TYPE_ITEM;
+        } else if (obj instanceof TransactionDate) {
+            return TYPE_HEADER;
+        } else if (obj instanceof TransactionStatistic) {
+            return TYPE_STATISTIC;
+        }
+        return TYPE_ITEM;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ITEM) {
             TransactionItemViewHolder vholder = (TransactionItemViewHolder) holder;
@@ -76,19 +90,6 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        Object obj = data.get(position);
-        //kiem tra kieu du lieu instanceof
-        if (obj instanceof Transaction) {
-            return TYPE_ITEM;
-        } else if (obj instanceof TransactionDate) {
-            return TYPE_HEADER;
-        } else if (obj instanceof TransactionStatistic) {
-            return TYPE_STATISTIC;
-        }
-        return TYPE_ITEM;
-    }
 
     @Override
     public int getItemCount() {
@@ -98,7 +99,7 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvBeginMoney;
         private TextView tvEndMoney;
 
-        public TransactionStatisticViewHolder(@NonNull View itemView) {
+        TransactionStatisticViewHolder(@NonNull View itemView) {
             super(itemView);
             tvBeginMoney = itemView.findViewById(R.id.tv_begin_money_value);
             tvEndMoney = itemView.findViewById(R.id.tv_end_money_value);
@@ -116,7 +117,7 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvMonth;
         private TextView tvAmount;
 
-        public TransactionHeaderViewHolder(@NonNull View itemView) {
+        TransactionHeaderViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDayOfMonth = itemView.findViewById(R.id.row_trans_header_day_of_month);

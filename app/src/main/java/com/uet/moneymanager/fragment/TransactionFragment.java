@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uet.moneymanager.R;
+import com.uet.moneymanager.activity.AddTransaction;
 import com.uet.moneymanager.activity.TransactionDetailActivity;
 import com.uet.moneymanager.adapter.TransactionListViewAdapter;
 import com.uet.moneymanager.database.DatabaseAccess;
@@ -49,6 +51,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
     SwipeRefreshLayout swipeRefreshLayout;
 
+    FloatingActionButton floatingActionButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,8 +61,8 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
         rvTransaction = view.findViewById(R.id.rvTransaction);
 
-        view.findViewById(R.id.transaction_prev_page).setOnClickListener((View.OnClickListener) this);
-        view.findViewById(R.id.transaction_next_page).setOnClickListener((View.OnClickListener) this);
+        view.findViewById(R.id.transaction_prev_page).setOnClickListener(this);
+        view.findViewById(R.id.transaction_next_page).setOnClickListener(this);
 
         tvTotalMoney = view.findViewById(R.id.tvTotalMoney);
         tvPreviousDate = view.findViewById(R.id.tvPreviousPage);
@@ -67,6 +70,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         tvCurrentPage = view.findViewById(R.id.tvCurrentPage);
         tvNoTransaction = view.findViewById(R.id.tvNoTransaction);
         swipeRefreshLayout = view.findViewById(R.id.srlTransaction);
+        floatingActionButton = view.findViewById(R.id.fabAddTransaction);
 
         currentDate = Calendar.getInstance().getTime();
 
@@ -77,8 +81,9 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         rvTransaction.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvTransaction.setAdapter(adapter);
 
-        adapter.setOnItemClickedListener((TransactionListViewAdapter.OnTransactionItemClickListener) this);
+        adapter.setOnItemClickedListener(this);
 
+        floatingActionButton.setOnClickListener(this);
         getAndFillData();
         updatePagesTitle();
 
@@ -101,6 +106,10 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
             case R.id.transaction_prev_page:
                 btnPrevPageClick();
                 break;
+            case R.id.fabAddTransaction:
+                Intent intent = new Intent(getActivity(), AddTransaction.class);
+                startActivityForResult(intent, ADD_TRANS_RESULT_CODE);
+                break;
         }
     }
 
@@ -114,7 +123,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         int nowInMonth = DateUtil.getMonth(Calendar.getInstance().getTime());
         int nowInYear = DateUtil.getYear(Calendar.getInstance().getTime());
 
-        if(nowInYear > currentYear || (nowInYear == currentYear && nowInMonth == currentMonth)){
+        if(nowInYear > currentYear || (nowInYear == currentYear && nowInMonth > currentMonth)){
             currentDate = DateUtil.getNextMonth(currentDate);
             updatePagesTitle();
             getAndFillData();
