@@ -147,18 +147,18 @@ public class DatabaseAccess {
         ContentValues values = new ContentValues();
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());
-        values.put("date", String.valueOf(transaction.getDate()));
+        values.put("date", transaction.getDate().getTime());
         values.put("group_id",transaction.getTransactionGroup().getId());
         database.insert("Transactions", null, values);
     }
 
-    public void updateTransaction(Transaction oldTransaction,Transaction newTransaction) {
+    public void updateTransaction(Transaction transaction) {
         ContentValues values = new ContentValues();
-        values.put("amount",newTransaction.getAmount());
-        values.put("note",newTransaction.getNote());
-        values.put("date", String.valueOf(newTransaction.getDate()));
-        values.put("group_id",newTransaction.getTransactionGroup().getId());
-        database.update("Transactions",values,"id = ?",new String[]{String.valueOf(oldTransaction.getId())});
+        values.put("amount",transaction.getAmount());
+        values.put("note",transaction.getNote());
+        values.put("date", transaction.getDate().getTime());
+        values.put("group_id",transaction.getTransactionGroup().getId());
+        database.update("Transactions",values,"id = " + transaction.getId(), null);
     }
 
     public void deleteTransaction(Transaction transaction) {
@@ -305,7 +305,6 @@ public class DatabaseAccess {
             return result;
         } else {
             c.moveToFirst();
-            Transaction transaction = null;
             while (!c.isAfterLast()) {
                 int amount = c.getInt(c.getColumnIndex("amount"));
                 result += amount;
@@ -316,4 +315,25 @@ public class DatabaseAccess {
         }
     }
 
+    public Transaction getTransactionById(int id) {
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+        String query = "SELECT * FROM Transactions WHERE id = " + id;
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null){
+            return null;
+        } else {
+            c.moveToFirst();
+            Transaction transaction = null;
+            if (!c.isAfterLast()){
+                int amount = c.getInt(c.getColumnIndex("amount"));
+                String note = c.getString(c.getColumnIndex("note"));
+                int groupId = c.getInt(c.getColumnIndex("group_id"));
+                Date date = Format.timestampToDate(c.getLong(c.getColumnIndex("date")));
+                transaction = new Transaction(id, amount, getGroupById(groupId), note, date);
+            }
+            c.close();
+            return transaction;
+        }
+    }
 }

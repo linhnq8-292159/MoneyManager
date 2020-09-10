@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activity.TransactionDetailActivity"/>
+        <activity android:name=".activity.EditTransaction"/>
         <activity android:name=".activity.SelectDateRangeActivity" />
         <activity android:name=".activity.AddTransaction" />
         <activity android:name=".activity.SelectTransactionGroup" />

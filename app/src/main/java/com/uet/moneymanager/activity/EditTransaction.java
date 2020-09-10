@@ -1,9 +1,12 @@
 package com.uet.moneymanager.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,7 +20,10 @@ import android.widget.TextView;
 
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.database.DatabaseAccess;
+import com.uet.moneymanager.model.Transaction;
+import com.uet.moneymanager.model.TransactionGroup;
 import com.uet.moneymanager.util.DateUtil;
+import com.uet.moneymanager.util.GroupIconUtil;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -35,6 +41,8 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
     DatePickerDialog pickerDialog;
     DatabaseAccess databaseAccess;
 
+    int id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,18 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_edit_transaction);
         findView();
         init();
+
+        id = getIntent().getIntExtra("id", 0);
+        Transaction transaction = databaseAccess.getTransactionById(id);
+        selectedDate = transaction.getDate();
+        tvDatePickerValue.setText(DateUtil.formatDate(transaction.getDate()));
+        tvSelectedGroup.setText(transaction.getTransactionGroup().getName());
+        //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(transaction.getTransactionGroup().getName()));
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String formatted = formatter.format(transaction.getAmount());
+        etAmountOfMoney.setText(formatted);
+        etNote.setText(transaction.getNote());
     }
 
     private void init() {
@@ -63,7 +83,7 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
                 etAmountOfMoney.removeTextChangedListener(this);
                 try {
                     String givenstring = editable.toString();
-                    Long longval;
+                    long longval;
                     if (givenstring.contains(",")) {
                         givenstring = givenstring.replaceAll(",", "");
                     }
@@ -72,7 +92,6 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
                     String formattedString = formatter.format(longval);
                     etAmountOfMoney.setText(formattedString);
                     etAmountOfMoney.setSelection(etAmountOfMoney.getText().length());
-                    // to place the cursor at the end of text
                 } catch (Exception nfe) {
                     nfe.printStackTrace();
                 }
@@ -124,6 +143,45 @@ public class EditTransaction extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(EditTransaction.this, SelectTransactionGroup.class);
                 startActivityForResult(intent, SELECT_GROUP);
                 break;
+            case R.id.tvSaveTransaction:
+                if (etAmountOfMoney.getText().toString().equals("") || tvSelectedGroup.getText().toString().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Lỗi");
+                    builder.setMessage("Vui lòng điền đầy đủ thông tin");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                } else{
+                    int amount = Integer.parseInt(etAmountOfMoney.getText().toString().replace(",", ""));
+                    TransactionGroup transactionGroup = databaseAccess.getGroupByGroupName(tvSelectedGroup.getText().toString());
+                    String note = etNote.getText().toString();
+                    Date date = selectedDate;
+                    if (transactionGroup.getType() == TransactionGroup.EXPENSE){
+                        amount = -amount;
+                    }
+                    returnIntent.putExtra("result", new Transaction(amount, transactionGroup, note, date));
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                break;
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SELECT_GROUP && resultCode == RESULT_OK) {
+            assert data != null;
+            String groupName = data.getStringExtra("groupName");
+            tvSelectedGroup.setText(groupName);
+            assert groupName != null;
+            //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(groupName));
+        }
+    }
+
 }

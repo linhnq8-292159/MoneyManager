@@ -121,8 +121,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="Chọn nhóm"
-                    android:textSize="18sp"
-                    android:textColor="@color/default_active_item_color"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

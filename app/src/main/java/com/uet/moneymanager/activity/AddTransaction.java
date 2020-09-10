@@ -171,7 +171,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             String groupName = data.getStringExtra("groupName");
             tvSelectedGroup.setText(groupName);
             assert groupName != null;
-            //lỗi dùng vector
             //ivTransactionGroupIcon.setImageResource(GroupIconUtil.getGroupIcon(groupName));
         }
     }
