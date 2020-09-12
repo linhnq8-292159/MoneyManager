@@ -130,19 +130,6 @@ public class DatabaseAccess {
     }
 
 
-//    public void insertTransaction(Transaction transaction) {
-//        //System.out.println("Deleting ads that is marked as to be deleted..");
-//        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase();
-//        db.execSQL(getInsertQuery(TABLE_TRANSACTION, prepareInsertIntoTableTransaction((int)transaction.getMoneyAmount(), transaction.getGroup().getId(), transaction.getNote(), transaction.getDate().getTime(), transaction.getWalletType())));
-//        long currentMoney = getCurrentMoney(transaction.getWalletType());
-//        if (transaction.getWalletType() == WalletType.BANK_CARD) {
-//            db.execSQL(getUpdatePropertiesQuery(PROPERTIES_CURRENT_MONEY_AMOUNT_BANK_CARD, String.valueOf((currentMoney + (long) transaction.getMoneyAmount()))));
-//        } else {
-//            db.execSQL(getUpdatePropertiesQuery(PROPERTIES_CURRENT_MONEY_AMOUNT_NORMAL, String.valueOf((currentMoney + (long) transaction.getMoneyAmount()))));
-//        }
-//
-//    }
-
     public void insertTransaction(Transaction transaction) {
         ContentValues values = new ContentValues();
         values.put("amount",transaction.getAmount());
