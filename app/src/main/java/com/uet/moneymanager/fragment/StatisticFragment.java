@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class StatisticFragment extends Fragment implements BottomSheetFragment.BottomSheetListener {
+public class StatisticFragment extends Fragment {
 
     public static final int SELECT_NEW_RANGE = 1;
 
@@ -47,7 +47,6 @@ public class StatisticFragment extends Fragment implements BottomSheetFragment.B
             Color.rgb(127,127,127), Color.rgb(146,208,80), Color.rgb(0,176,80), Color.rgb(79,129,189)};
 
     SwipeRefreshLayout swipeRefreshLayout;
-    ImageView btnMore;
     DatabaseAccess database;
 
 
@@ -57,21 +56,12 @@ public class StatisticFragment extends Fragment implements BottomSheetFragment.B
         View rootView = inflater.inflate(R.layout.fragment_statistic, container, false);
         pieChart  = rootView.findViewById(R.id.pieChart);
         swipeRefreshLayout = rootView.findViewById(R.id.srlReporting);
-        btnMore = rootView.findViewById(R.id.btnMore);
         tvStartDate = rootView.findViewById(R.id.tvStartDate);
         tvEndDate = rootView.findViewById(R.id.tvEndDate);
-        tvInitialAmount = rootView.findViewById(R.id.tvInitialAmount);
-        tvFinalAmount = rootView.findViewById(R.id.tvFinalAmount);
+
 
         database = new DatabaseAccess(getActivity());
 
-        btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
-                bottomSheetFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), bottomSheetFragment.getTag());
-            }
-        });
 
         Date now = Calendar.getInstance().getTime();
         Date firstDay = DateUtil.getFirstDayOfThisMonth(now);
@@ -109,9 +99,8 @@ public class StatisticFragment extends Fragment implements BottomSheetFragment.B
 
     private void updateData(Date firstDay, Date lastDay) {
         tvStartDate.setText(Format.dateToString(firstDay));
-        //tvEndDate.setText(Format.dateToString(lastDay));
-        tvInitialAmount.setText(Format.intToString(database.getMoneyInADay(firstDay)));
-        tvFinalAmount.setText(Format.intToString(database.getMoneyInADay(lastDay)));
+
+
 
         List<Transaction> transactions = database.getTransactionInRange(firstDay, lastDay);
 
@@ -127,23 +116,6 @@ public class StatisticFragment extends Fragment implements BottomSheetFragment.B
         drawChart();
     }
 
-    @Override
-    public void onItemClickListener(String position) {
-        if (position.equals("1")) {
-            Date now = Calendar.getInstance().getTime();
-            Date firstDay = DateUtil.getFirstDayOfThisMonth(now);
-            Date lastDay = DateUtil.getLastDayOfThisMonth(now);
-            updateData(firstDay, lastDay);
-        } else if (position.equals("2")) {
-            Date now = Calendar.getInstance().getTime();
-            Date firstDay = DateUtil.getPrevMonth(now);
-            Date lastDay = DateUtil.getLastDayOfThisMonth(firstDay);
-            updateData(firstDay, lastDay);
-        } else {
-            Intent intent = new Intent(getActivity(), SelectDate.class);
-            startActivityForResult(intent, SELECT_NEW_RANGE);
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
