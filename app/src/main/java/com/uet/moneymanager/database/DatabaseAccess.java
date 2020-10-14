@@ -61,7 +61,6 @@ public class DatabaseAccess {
                 int id = c.getInt(c.getColumnIndex("id"));
                 int amount = c.getInt(c.getColumnIndex("amount"));
                 String note = c.getString(c.getColumnIndex("note"));
-                //int walletType = c.getInt(c.getColumnIndex(TRANSACTION_WALLET_TYPE));
                 int groupId = c.getInt(c.getColumnIndex("group_id"));
                 Date date = Format.timestampToDate(c.getLong(c.getColumnIndex("date")));
 
@@ -117,7 +116,7 @@ public class DatabaseAccess {
             while  (!c.isAfterLast()) {
                 int id = c.getInt(c.getColumnIndex("id"));
                 int amount = c.getInt(c.getColumnIndex("amount"));
-                String note = c.getString(c.getColumnIndex("date"));
+                String note = c.getString(c.getColumnIndex("note"));
                 int groupId = c.getInt(c.getColumnIndex("group_id"));
                 Date date = Format.timestampToDate(c.getLong(c.getColumnIndex("date")));
                 lst.add(new Transaction(id, amount, getGroupById(groupId), note, date));
@@ -140,6 +139,7 @@ public class DatabaseAccess {
     }
 
     public void updateTransaction(Transaction transaction) {
+        open();
         ContentValues values = new ContentValues();
         values.put("amount",transaction.getAmount());
         values.put("note",transaction.getNote());

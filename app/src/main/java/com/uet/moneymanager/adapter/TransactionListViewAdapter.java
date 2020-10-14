@@ -85,7 +85,6 @@ public class TransactionListViewAdapter extends RecyclerView.Adapter<RecyclerVie
         } else if (getItemViewType(position) == TYPE_HEADER) {
             ((TransactionHeaderViewHolder) holder).setTransactionDate((TransactionDate) data.get(position));
         } else if (getItemViewType(position) == TYPE_STATISTIC) {
-
             ((TransactionStatisticViewHolder) holder).setTransactionStatistic((TransactionStatistic) data.get(position));
         }
     }

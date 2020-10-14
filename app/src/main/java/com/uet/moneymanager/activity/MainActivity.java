@@ -13,9 +13,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.luseen.spacenavigation.SpaceItem;
-import com.luseen.spacenavigation.SpaceNavigationView;
-import com.luseen.spacenavigation.SpaceOnClickListener;
 import com.uet.moneymanager.R;
 import com.uet.moneymanager.fragment.StatisticFragment;
 import com.uet.moneymanager.fragment.TransactionFragment;
@@ -23,7 +20,7 @@ import com.uet.moneymanager.fragment.TransactionFragment;
 public class MainActivity extends AppCompatActivity {
 
     final Fragment transactionFragment = new TransactionFragment();
-    private BottomNavigationView bottomNavigationView;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

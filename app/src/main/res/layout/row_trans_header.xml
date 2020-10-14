@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content" android:padding="10dp"
-    android:layout_marginTop="25dp" >
+    android:layout_marginTop="25dp"
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_centerVertical="true"
